@@ -23,9 +23,9 @@ const SignIn = () => {
     setError('');
     try {
       let endpoint = '';
-      if (formData.role === 'admin') endpoint = 'http://localhost:5000/api/admin/login';
-      else if (formData.role === 'teacher') endpoint = 'http://localhost:5000/api/teachers/login';
-      else endpoint = 'http://localhost:5000/api/students/login';
+      if (formData.role === 'admin') endpoint = 'https://university-portal-backend-beryl.vercel.app/api/admin/login';
+      else if (formData.role === 'teacher') endpoint = 'https://university-portal-backend-beryl.vercel.app/api/teachers/login';
+      else endpoint = 'https://university-portal-backend-beryl.vercel.app/api/students/login';
 
       const response = await axios.post(endpoint, {
         email: formData.email,

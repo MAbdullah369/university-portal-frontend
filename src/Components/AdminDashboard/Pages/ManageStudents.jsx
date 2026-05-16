@@ -20,7 +20,7 @@ const ManageStudents = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/students', {
+      const res = await axios.get('https://university-portal-backend-beryl.vercel.app/api/students', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStudents(res.data.data);
@@ -33,7 +33,7 @@ const ManageStudents = () => {
 
   const fetchActiveBatch = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/sessions');
+      const res = await axios.get('https://university-portal-backend-beryl.vercel.app/api/admin/dashboard');
       const active = res.data.data.find(s => s.isActive);
       if (active) {
         const yearMatch = active.sessionName.match(/\d{4}/);
@@ -60,7 +60,7 @@ const ManageStudents = () => {
     setFormLoading(true); setMessage(''); setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/students/register', formData, {
+      const response = await axios.post('https://university-portal-backend-beryl.vercel.app/api/students/register', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessage(`Added successfully! Roll No: ${response.data.data.rollNumber} | Email: ${response.data.data.email}`);

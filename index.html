@@ -4,7 +4,32 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <title>University Portal</title>
+    <script>
+      // Global Network Patch for Vercel Deployment
+      (function() {
+        const BACKEND_URL = 'https://university-portal-backend-beryl.vercel.app';
+        
+        // Patch XMLHttpRequest (used by Axios)
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(method, url) {
+          if (typeof url === 'string' && url.includes('localhost:5000')) {
+            url = url.replace('http://localhost:5000', BACKEND_URL);
+          }
+          return originalOpen.apply(this, arguments);
+        };
+
+        // Patch Fetch
+        const originalFetch = window.fetch;
+        window.fetch = function(input, init) {
+          if (typeof input === 'string' && input.includes('localhost:5000')) {
+            input = input.replace('http://localhost:5000', BACKEND_URL);
+          }
+          return originalFetch(input, init);
+        };
+        console.log("🚀 Vercel Backend Redirect Active");
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
